@@ -1,138 +1,5 @@
-
 import React from 'react';
 import '../styles/Alljobs.css';
-
-const jobs = [
-  {
-    title: 'Company name here',
-    category: 'xxxxxx',
-    company: 'xxxxx',
-    location: 'xxxxxx',
-    date: 'xxxxxx',
-    description: 'param',
-  },
-  {
-    title: 'xxxxx',
-    category: 'xxxxxx',
-    company: 'xxxxx',
-    location: 'xxxxxx',
-    date: 'xxxxxx',
-    description: 'param',
-  },
-  {
-    title: 'xxxxx',
-    category: 'xxxxxx',
-    company: 'xxxxx',
-    location: 'xxxxxx',
-    date: 'xxxxxx',
-    description: 'param',
-  },
-  {
-    title: 'xxxxx',
-    category: 'xxxxxx',
-    company: 'xxxxx',
-    location: 'xxxxxx',
-    date: 'xxxxxx',
-    description: 'param',
-  },
-  {
-    title: 'xxxxx',
-    category: 'xxxxxx',
-    company: 'xxxxx',
-    location: 'xxxxxx',
-    date: 'xxxxxx',
-    description: 'param',
-  },
-  {
-    title: 'xxxxx',
-    category: 'xxxxxx',
-    company: 'xxxxx',
-    location: 'xxxxxx',
-    date: 'xxxxxx',
-    description: 'param',
-  },
-  {
-    title: 'xxxxx',
-    category: 'xxxxxx',
-    company: 'xxxxx',
-    location: 'xxxxxx',
-    date: 'xxxxxx',
-    description: 'param',
-  },
-  {
-    title: 'xxxxx',
-    category: 'xxxxxx',
-    company: 'xxxxx',
-    location: 'xxxxxx',
-    date: 'xxxxxx',
-    description: 'param',
-  },
-  {
-    title: 'xxxxx',
-    category: 'xxxxxx',
-    company: 'xxxxx',
-    location: 'xxxxxx',
-    date: 'xxxxxx',
-    description: 'param',
-  }
-  ,{
-    title: 'xxxxx',
-    category: 'xxxxxx',
-    company: 'xxxxx',
-    location: 'xxxxxx',
-    date: 'xxxxxx',
-    description: 'param',
-  },
-  {
-    title: 'xxxxx',
-    category: 'xxxxxx',
-    company: 'xxxxx',
-    location: 'xxxxxx',
-    date: 'xxxxxx',
-    description: 'param',
-  },
-  {
-    title: 'xxxxx',
-    category: 'xxxxxx',
-    company: 'xxxxx',
-    location: 'xxxxxx',
-    date: 'xxxxxx',
-    description: 'param',
-  },
-  {
-    title: 'xxxxx',
-    category: 'xxxxxx',
-    company: 'xxxxx',
-    location: 'xxxxxx',
-    date: 'xxxxxx',
-    description: 'param',
-  },
-  {
-    title: 'xxxxx',
-    category: 'xxxxxx',
-    company: 'xxxxx',
-    location: 'xxxxxx',
-    date: 'xxxxxx',
-    description: 'param',
-  },
-  {
-    title: 'xxxxx',
-    category: 'xxxxxx',
-    company: 'xxxxx',
-    location: 'xxxxxx',
-    date: 'xxxxxx',
-    description: 'param',
-  },
-  {
-    title: 'xxxxx',
-    category: 'xxxxxx',
-    company: 'xxxxx',
-    location: 'xxxxxx',
-    date: 'xxxxxx',
-    description: 'param',
-  },
-
-];
 
 const JobCard = ({ job }) => (
   <div className="job-card">
@@ -142,17 +9,20 @@ const JobCard = ({ job }) => (
     <hr />
     <p>Company: {job.company}</p>
     <p>Location: {job.location}</p>
-    <p>Date: {job.date}</p>
     <button>Apply</button>
   </div>
 );
 
-const Alljobs = () => {
+const Alljobs = ({ jobs = [] }) => {
   return (
     <div className="jobs-container">
-      {jobs.map((job) => (
-        <JobCard key={job.title} job={job} />
-      ))}
+      {jobs.length === 0 ? (
+        <p>No jobs available.</p>
+      ) : (
+        jobs.map((job, index) => (
+          <JobCard key={index} job={job} />
+        ))
+      )}
     </div>
   );
 };

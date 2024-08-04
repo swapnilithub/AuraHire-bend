@@ -10,14 +10,10 @@
     background-position: center;
     background-repeat: no-repeat;
     width: 100%;
-    margin-left: 5px;
-    margin-bottom: 5px;
-    margin-right: 5px;
   }
   
   body {
     margin: 0;
-    /* Remove padding-bottom since footer is no longer fixed */
   }
   
   .footer-content {

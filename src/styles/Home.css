@@ -10,7 +10,7 @@
     color: #333;
   }
   
-  .job-container {
+  .job-container-home {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;

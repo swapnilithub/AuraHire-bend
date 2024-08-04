@@ -1,6 +1,6 @@
 import React from 'react';
 import "../../styles/footer.css";
-import backgroundImage from "../assets/head-EDIT.jpg";
+import backgroundImage from "../assets/hefo.jpg";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -9,7 +9,7 @@ const Footer = () => {
     <footer className="footer" style={{ backgroundImage: `url(${backgroundImage})` }}>
       <div className="footer-content">
         <div className="footer-logo">
-          <span>@Company_Name</span>
+          <span>AuraHire</span>
         </div>
         <nav className="footer-nav">
           <ul>
@@ -17,15 +17,14 @@ const Footer = () => {
             <li><a href="/about">About</a></li>
             <li><a href="/contact">Contact</a></li>
             <li><a href="/jobs">Jobs</a></li>
-            <li><a href="/account">My Account</a></li>
           </ul>
         </nav>
         <div className="footer-tagline">
-          <p>Hey @user</p>
+          <p>Hey @Swapnil:]</p>
         </div>
       </div>
       <div className="footer-copyright">
-        <p>Copyright &copy; {currentYear} Company Name. All rights reserved.</p>
+        <p>Copyright &copy; {currentYear} AuraHire. All rights reserved.</p>
       </div>
     </footer>
   );

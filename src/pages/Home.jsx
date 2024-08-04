@@ -1,6 +1,5 @@
 import React from 'react'
 import HeroSlider from "../pages/HeroSlider";
-import { Container, Row, Col } from 'reactstrap'; 
 import "../styles/Home.css";
 import HeroSlider2 from '../pages/HeroSlider2';
 
@@ -64,11 +63,11 @@ const jobs = [
 const Home = () => {
   return (
     <section className="p-0 hero__slider-section"> 
-    <br></br>
+   
     <HeroSlider />
     <section className="job-display">
   <h2>Featured Jobs</h2>
-  <div className="job-container">
+  <div className="job-container-home">
     {jobs.map((job, index) => (
       <div className="job-card" key={index}>
         <h3 className="job-title">{job.title}</h3>
@@ -94,6 +93,7 @@ const Home = () => {
       </div>
     ))}
   </div>
+  <br></br>
 </section>
 <HeroSlider2 />
 <section className="testimonials">

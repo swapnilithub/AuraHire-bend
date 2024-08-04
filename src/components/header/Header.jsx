@@ -1,7 +1,7 @@
 import React from 'react';
 import "../../styles/header.css";
-import logo from "../assets/logo.png";
-import backgroundImage from "../assets/head-EDIT.jpg";
+import backgroundImage from "../assets/hefo.jpg";
+import logo from "../assets/aurahire.png";
 
 const Header = () => {
   return (
@@ -9,10 +9,10 @@ const Header = () => {
       <div className="header-content">
         <div className="logo">
           <img src={logo} alt="Company Logo" className="logo-image" />
-          <span className="logo-title">@Company_name</span>
+          <span className="logo-title">AuraHire</span>
         </div>
         <div className="tagline">
-          <span>Innovating Your Future</span>
+          <span>Welcome to AuraHire</span>
         </div>
         <nav>
           <ul>

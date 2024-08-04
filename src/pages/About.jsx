@@ -3,8 +3,8 @@ import '../styles/About.css';
 
 const About = () => {
   return (
-    <section className="about">
-      <div className="about-content">
+    <div className="container-ab">
+      <section className="about">
         <h1>About Us</h1>
         <p className="intro">
           Welcome to <strong>Our Company</strong>! We are committed to providing the best services and products to our customers. Our mission is to innovate and deliver top-quality solutions that exceed expectations.
@@ -30,8 +30,8 @@ const About = () => {
             Thank you for visiting our About page. If you have any questions or need more information, feel free to <a href="/contact">contact us</a>!
           </p>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 };
 
