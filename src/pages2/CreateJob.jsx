@@ -1,93 +1,69 @@
 import React, { useState } from 'react';
 import "../styles2/createjob.css";
 
-const CreateJob = ({ addJob, jobs }) => {
-  // State variables for form fields
-  const [jobTitle, setJobTitle] = useState('');
-  const [jobCategory, setJobCategory] = useState('');
-  const [jobCompany, setJobCompany] = useState('');
-  const [jobLocation, setJobLocation] = useState('');
-  const [jobDescription, setJobDescription] = useState('');
+const CreateJob = ({ addJob }) => {
+  const [job, setJob] = useState({ title: '', category: '', company: '', location: '', description: '' });
 
-  console.log(addJob);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setJob((prevJob) => ({ ...prevJob, [name]: value }));
+  };
 
-  
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const newJob = {
-      title: jobTitle,
-      category: jobCategory,
-      company: jobCompany,
-      location: jobLocation,
-      description: jobDescription,
-    };
-
-    if (typeof addJob === 'function') {
-      addJob(newJob);
-    } else {
-      console.error("addJob is not a function");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!job.title || !job.category || !job.company || !job.location || !job.description) {
+      alert('Please fill in all fields');
+      return;
     }
-    setJobTitle('');
-    setJobCategory('');
-    setJobCompany('');
-    setJobLocation('');
-    setJobDescription('');
+
+    try {
+      const response = await fetch('http://localhost:8080/api/jobs', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(job),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+      addJob(data); // Call addJob to update state in App
+      setJob({ title: '', category: '', company: '', location: '', description: '' }); // Clear form
+      alert('Job added successfully!');
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+      alert('Failed to add job. Please try again.');
+    }
   };
 
   return (
     <div className="containerjob">
-      <h1>Create Job</h1>
-      <form onSubmit={handleSubmit} className="job-form">
+      <h2>Create Job</h2>
+      <form className="job-form" onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="jobTitle">Job Title:</label>
-          <input
-            type="text"
-            id="jobTitle"
-            value={jobTitle}
-            onChange={(e) => setJobTitle(e.target.value)}
-            required
-          />
+          <label>Job Title</label>
+          <input name="title" value={job.title} onChange={handleChange} placeholder="Job Title" />
         </div>
         <div className="form-group">
-          <label htmlFor="jobCategory">Category:</label>
-          <input
-            type="text"
-            id="jobCategory"
-            value={jobCategory}
-            onChange={(e) => setJobCategory(e.target.value)}
-            required
-          />
+          <label>Category</label>
+          <input name="category" value={job.category} onChange={handleChange} placeholder="Category" />
         </div>
         <div className="form-group">
-          <label htmlFor="jobCompany">Company:</label>
-          <input
-            type="text"
-            id="jobCompany"
-            value={jobCompany}
-            onChange={(e) => setJobCompany(e.target.value)}
-            required
-          />
+          <label>Company</label>
+          <input name="company" value={job.company} onChange={handleChange} placeholder="Company" />
         </div>
         <div className="form-group">
-          <label htmlFor="jobLocation">Location:</label>
-          <input
-            type="text"
-            id="jobLocation"
-            value={jobLocation}
-            onChange={(e) => setJobLocation(e.target.value)}
-            required
-          />
+          <label>Location</label>
+          <input name="location" value={job.location} onChange={handleChange} placeholder="Location" />
         </div>
         <div className="form-group">
-          <label htmlFor="jobDescription">Job Description:</label>
-          <textarea
-            id="jobDescription"
-            value={jobDescription}
-            onChange={(e) => setJobDescription(e.target.value)}
-            required
-          />
+          <label>Description</label>
+          <input name="description" value={job.description} onChange={handleChange} placeholder="Description" />
         </div>
-        <button type="submit" className="buttoncjob">Submit</button>
+        <button className="buttoncjob" type="submit">Add Job</button>
       </form>
     </div>
   );

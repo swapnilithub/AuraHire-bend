@@ -5,16 +5,24 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-
-
 import { BrowserRouter as Router } from "react-router-dom";
+import { UserProvider } from './UserContext';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+
+import './styles2/createjob.css';
+import './styles/Alljobs.css';
+
+const rootElement = document.getElementById('root');
+const root = ReactDOM.createRoot(rootElement);
+
 root.render(
   <React.StrictMode>
     <Router>
-      <App />
+      <UserProvider>
+        <App />
+      </UserProvider>
     </Router>
   </React.StrictMode>
 );
+
 reportWebVitals();

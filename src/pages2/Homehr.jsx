@@ -1,25 +1,28 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate instead of useHistory
+import { useNavigate } from 'react-router-dom';
 import "../styles2/home.css";
+import Sliderhr from './Sliderhr';
 
 const Homehr = () => {
-  const navigate = useNavigate(); // Use useNavigate for navigation
+  const navigate = useNavigate(); 
 
   const handleCreateJobs = () => {
-    navigate('/create-job'); // Use navigate to change routes
+    navigate('/create-job');
   };
 
   const handleViewApplicants = () => {
-    // Logic for viewing applicants
     console.log('View Applicants button clicked');
   };
 
   return (
-    <div className="container">
-      <div className="button-container">
-        <button className="button" onClick={handleCreateJobs}>Create Jobs</button>
-        <button className="button" onClick={handleViewApplicants}>View Applicants</button>
+    <div className="sliderhr">
+      <Sliderhr />
+    <div className="container-hr">
+      <div className="button-container-hr">
+        <button className="button-hr" onClick={handleCreateJobs}>Create Jobs</button>
+        <button className="button-hr" onClick={handleViewApplicants}>View Applicants</button>
       </div>
+    </div>
     </div>
   );
 };

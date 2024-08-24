@@ -1,26 +1,25 @@
 import React from 'react';
 import "../../styles/header.css";
-import backgroundImage from "../assets/hefo.jpg";
 import logo from "../assets/aurahire.png";
+import backgroundImage from "../assets/hefo.jpg";
 
-const Header = () => {
+const RecruitHeader = () => {
   return (
     <header className="header" style={{ backgroundImage: `url(${backgroundImage})` }}>
       <div className="header-content">
         <div className="logo">
-          <img src={logo} alt="Company Logo" className="logo-image" />
+          <img src={logo} alt="Recruitment Team Logo" className="logo-image" />
           <span className="logo-title">Aura<strong>Hire</strong></span>
         </div>
         <div className="tagline">
-          <span>Welcome to <strong>AuraHire</strong></span>
+          <span>Welcome to the <strong>AuraHire</strong> Recruitment Team Portal</span>
         </div>
         <nav>
           <ul>
-            <li><a href="/home">Home</a></li>
-            <li><a href="/about">About Us</a></li>
-            <li><a href="/contact">Contact Us</a></li>
-            <li><a href="/jobs">All Jobs</a></li>
-            <li><a href="/profile">My Profile</a></li>
+            <li><a href="/homehr">Home</a></li>
+            <li><a href="/contact-us">Contact Us</a></li>
+            <li><a href="/about-us">About Us</a></li>
+            <li><a href="/hr-profile">My Profile</a></li>
           </ul>
         </nav>
       </div>
@@ -28,4 +27,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default RecruitHeader;

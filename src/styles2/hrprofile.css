@@ -1,0 +1,99 @@
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: black;
+}
+
+.hr-profile-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #0f291f;
+  margin-left: 60px;
+  align-content: center;
+}
+
+.hr-profile-header {
+  text-align: center;
+  background: black;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  width: 350px;
+  padding-top: 70px;
+}
+
+.hr-profile-display {
+  margin-top: 20px;
+}
+
+.hr-photo {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.hr-profile-photo {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  border: 4px solid #11533a;
+}
+
+.hr-details {
+  text-align: left;
+  margin-bottom: 15px;
+  color: #ffffff;
+  margin-top: 39px;
+}
+
+.hr-detail {
+  margin-bottom: 10px;
+}
+
+.hr-detail strong {
+  display: inline-block;
+  width: 70px;
+  color: #ffffff;
+}
+
+.hr-resume-link {
+  color: #0f291f;
+  text-decoration: none;
+}
+
+.hr-resume-link:hover {
+  text-decoration: underline;
+}
+
+.button-group-renamed {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  margin-top: 17px;
+}
+
+.hr-edit-button,
+.hr-change-password-button,
+.hr-logout-button {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  background-color: #0f291f;
+  color: #ffffff;
+  border: none;
+  border-radius: 95px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.hr-edit-button:hover,
+.hr-change-password-button:hover,
+.hr-logout-button:hover {
+  background-color: black;
+}

@@ -9,7 +9,7 @@ const Footer = () => {
     <footer className="footer" style={{ backgroundImage: `url(${backgroundImage})` }}>
       <div className="footer-content">
         <div className="footer-logo">
-          <span>AuraHire</span>
+          <span>Aura<strong>Hire</strong></span>
         </div>
         <nav className="footer-nav">
           <ul>
@@ -24,7 +24,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="footer-copyright">
-        <p>Copyright &copy; {currentYear} AuraHire. All rights reserved.</p>
+        <p>Copyright &copy; {currentYear} Aura<strong>Hire</strong>. All rights reserved.</p>
       </div>
     </footer>
   );

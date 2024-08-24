@@ -1,24 +1,38 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import "./Welcomepage.css";
+import { useUser } from './UserContext';
+import './Welcomepage.css';
+import logo from './aurahire.png';
 
 const WelcomePage = () => {
+  const { setUserType } = useUser();
   const navigate = useNavigate();
 
-  const handleGoToHome = () => {
-    navigate('/home'); 
-  };
-
-  const handleGoToHomehr = () => {
-    navigate('/homehr');
+  const handleUserTypeChange = (type) => {
+    setUserType(type);
+    if (type === 'student') {
+      navigate('/login'); // Redirect to the Login page for students
+    } else {
+      navigate('/homehr'); // Redirect to the HomeHR page for recruiters
+    }
   };
 
   return (
     <div className="container-wp">
-      <h4>Welcome to AuraHire</h4>
-      <div className="button-container-wp">
-        <button className="button" onClick={handleGoToHome}>Student</button>
-        <button className="button" onClick={handleGoToHomehr}>Recruiter</button>
+      <div className="left-side">
+        <img src={logo} alt="AuraHire Logo" className="logo-wp" />
+        <h1>Welcome to <strong>AuraHire</strong></h1>
+      </div>
+      <div className="right-side">
+        <h3>Your Gateway to <strong>Opportunities</strong></h3>
+        <div className="button-container-wp">
+          <button className="button-wp" onClick={() => handleUserTypeChange('student')}>
+            Continue as Student
+          </button>
+          <button className="button-wp" onClick={() => handleUserTypeChange('recruiter')}>
+            Continue as Recruiter
+          </button>
+        </div>
       </div>
     </div>
   );

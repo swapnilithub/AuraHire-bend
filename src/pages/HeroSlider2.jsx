@@ -1,15 +1,13 @@
 import React from "react";
 import Slider from "react-slick";
-import { Container } from "reactstrap";
 import { Link } from "react-router-dom";
 
 import "../styles/hero-slider2.css";
 
-const HeroSlider = () => {
+const HeroSlider2 = () => {
   const settings = {
-    fade: true,
-    speed: 2000,
-    autoplaySpeed: 3000,
+    speed: 1000,
+    autoplaySpeed: 2300,
     infinite: true,
     autoplay: true,
     slidesToShow: 1,
@@ -20,7 +18,7 @@ const HeroSlider = () => {
   return (
     <Slider {...settings} className="hero-slider">
       <div className="hero-slider__item hero-slider__item--01 mt0">
-        <Container>
+        <SliderContainer>
           <div className="hero-slider__content">
             <h4 className="text-light mb-3">Welcome to @Company_name</h4>
             <h1 className="text-light mb-4">We are under development</h1>
@@ -29,11 +27,11 @@ const HeroSlider = () => {
               <Link to="/cars">Add comment</Link>
             </button>
           </div>
-        </Container>
+        </SliderContainer>
       </div>
 
       <div className="hero-slider__item hero-slider__item--02 mt0">
-        <Container>
+        <SliderContainer>
           <div className="hero-slider__content">
             <h4 className="text-light mb-3">Thanks for waiting</h4>
             <h1 className="text-light mb-4">Explore @Company_Name</h1>
@@ -42,11 +40,11 @@ const HeroSlider = () => {
               <Link to="/cars">How are you?</Link>
             </button>
           </div>
-        </Container>
+        </SliderContainer>
       </div>
 
       <div className="hero-slider__item hero-slider__item--03 mt0">
-        <Container>
+        <SliderContainer>
           <div className="hero-slider__content">
             <h4 className="text-light mb-3">Hey Hello</h4>
             <h1 className="text-light mb-4">Thank you for your patience</h1>
@@ -55,10 +53,14 @@ const HeroSlider = () => {
               <Link to="/cars">@Swapnil</Link>
             </button>
           </div>
-        </Container>
+        </SliderContainer>
       </div>
     </Slider>
   );
 };
 
-export default HeroSlider;
+const SliderContainer = ({ children }) => (
+  <div className="slider-container">{children}</div>
+);
+
+export default HeroSlider2;

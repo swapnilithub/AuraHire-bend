@@ -1,16 +1,13 @@
 import React from "react";
-import Slider from "react-slick"; //slidernshit
-import { Container } from "reactstrap";
+import Slider from "react-slick";
 import { Link } from "react-router-dom";
-
 
 import "../styles/hero-slider.css";
 
 const HeroSlider = () => {
   const settings = {
-    fade: true,
-    speed: 2000,
-    autoplaySpeed: 3000,
+    speed: 1000,
+    autoplaySpeed: 2300,
     infinite: true,
     autoplay: true,
     slidesToShow: 1,
@@ -20,45 +17,50 @@ const HeroSlider = () => {
   return (
     <Slider {...settings} className="hero__slider">
       <div className="slider__item slider__item-01 mt0">
-        <Container>
+        <SliderContainer>
           <div className="slider__content ">
-            <h4 className="text-light mb-3">Welcome to @Company_name</h4>
-            <h1 className="text-light mb-4">We are under development</h1>
+            <h4 className="text-light mb-3">Hi</h4>
+            <h1 className="text-light mb-4">Welcome to Aura<strong>Hire</strong></h1>
 
             <button className="btn reserve__btn mt-4">
-              <Link to="/cars">Add coomment</Link>
+              <Link to="/cars">Add Comment</Link>
             </button>
           </div>
-        </Container>
+        </SliderContainer>
       </div>
 
       <div className="slider__item slider__item-02 mt0">
-        <Container>
+        <SliderContainer>
           <div className="slider__content ">
             <h4 className="text-light mb-3">Thanks for waiting</h4>
-            <h1 className="text-light mb-4">Explore @Company_Name</h1>
+            <h1 className="text-light mb-4">Connect with <strong>Us</strong></h1>
 
             <button className="btn reserve__btn mt-4">
               <Link to="/cars">How are you?</Link>
             </button>
           </div>
-        </Container>
+        </SliderContainer>
       </div>
 
       <div className="slider__item slider__item-03 mt0">
-        <Container>
+        <SliderContainer>
           <div className="slider__content ">
-            <h4 className="text-light mb-3">Hey Hello</h4>
-            <h1 className="text-light mb-4">Thank you for your patience</h1>
+            <h4 className="text-light mb-3">Want Jobs?</h4>
+            <h1 className="text-light mb-4">Connect with <strong>Hire</strong></h1>
+            <h1 className="text-light mb-4">Explore Aura</h1>
 
             <button className="btn reserve__btn mt-4">
               <Link to="/cars">@Swapnil</Link>
             </button>
           </div>
-        </Container>
+        </SliderContainer>
       </div>
     </Slider>
   );
 };
+
+const SliderContainer = ({ children }) => (
+  <div className="slider__container">{children}</div>
+);
 
 export default HeroSlider;

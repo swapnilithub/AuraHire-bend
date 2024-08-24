@@ -1,90 +1,93 @@
-.slider__item {
-    max-width: 100%;
-    height: 650px;
-    margin-left: 5px;
-  }
-  
+
+.hero-slider {
+  overflow: hidden;
+}
+
+.hero-slider__item {
+  max-width: 100%;
+  height: 450px;
+  margin-left: 3px;
+}
+
+.hero-slider__item--01 {
+  background: linear-gradient(rgb(0, 13, 107, 0.5), rgb(0, 13, 107, 0.5)),
+    url("J:\AtsAugFend\atsfrontend\src\components\assets\sl4.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.hero-slider__item--02 {
+  background: linear-gradient(rgb(0, 13, 107, 0.5), rgb(0, 13, 107, 0.5)),
+    url("J:\AtsAugFend\atsfrontend\src\components\assets\sl5.jpeg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.hero-slider__item--03 {
+  background: linear-gradient(rgb(0, 13, 107, 0.5), rgb(0, 13, 107, 0.5)),
+    url("J:\AtsAugFend\atsfrontend\src\components\assets\sl6.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.slider-container {
+  padding: 0 15px;
+  margin: 0 auto;
+  max-width: 1140px;
+}
+
+.hero-slider__content {
+  padding-top: 209px;
+  margin-left: 100px;
+}
+
+.hero-slider__content h1 {
+  font-size: 3.2rem;
+  font-weight: 600;
+  margin-left: 10px;
+}
+
+.reserve-btn {
+  background: transparent;
+  color: black !important;
+  border: none;
+  outline: none;
+}
+
+.reserve-btn a {
+  text-decoration: none;
+  font-weight: 600;
+  color: black;
+}
+
+.reserve-btn:hover {
+  color: #fff;
+}
+
+@media only screen and (max-width: 992px) {
   .hero-slider__item {
-    max-width: 100%;
-    height: 650px;
-    margin: 5px;
-    margin-right: 5px;
+    height: 530px;
+    max-width: 100vw;
   }
-  
-  .hero-slider__item--01 {
-    background: linear-gradient(rgb(0, 13, 107, 0.5), rgb(0, 13, 107, 0.5)),
-    url("J:\AtsAugFend\atsfrontend\src\components\assets\pexels-donaldtong94-23475.jpg");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
-  
-  .hero-slider__item--02 {
-    background: linear-gradient(rgb(0, 13, 107, 0.5), rgb(0, 13, 107, 0.5)),
-      url("J:\AtsAugFend\atsfrontend\src\components\assets\pexels-japy-1069798.jpg");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
-  
-  .hero-slider__item--03 {
-    background: linear-gradient(rgb(0, 13, 107, 0.5), rgb(0, 13, 107, 0.5)),
-      url("J:\AtsAugFend\atsfrontend\src\components\assets\pexels-jeshoots-234527.jpg");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
-  
+
   .hero-slider__content {
-    padding-top: 309px;
-    margin-left: 335px;
+    margin-top: -50px;
   }
-  
+
   .hero-slider__content h1 {
-    font-size: 3.2rem;
-    font-weight: 600;
-    margin-left: 10px;
+    font-size: 2rem;
   }
-  
-  .reserve-btn {
-    background: transparent;
-    color: black !important;
-    border: none;
-    outline: none;
+}
+
+@media only screen and (max-width: 768px) {
+  .hero-slider__item {
+    height: 450px;
   }
-  
-  .reserve-btn a {
-    text-decoration: none;
-    font-weight: 600;
-    color: black;
+
+  .hero-slider__content h1 {
+    font-size: 1.5rem;
   }
-  
-  .reserve-btn:hover {
-    color: #fff;
-  }
-  
-  @media only screen and (max-width: 992px) {
-    .hero-slider__item {
-      height: 530px;
-      max-width: 100vw;
-    }
-  
-    .hero-slider__content {
-      margin-top: -50px;
-    }
-  
-    .hero-slider__content h1 {
-      font-size: 2rem;
-    }
-  }
-  
-  @media only screen and (max-width: 768px) {
-    .hero-slider__item {
-      height: 450px;
-    }
-  
-    .hero-slider__content h1 {
-      font-size: 1.5rem;
-    }
-  }
-  
+}

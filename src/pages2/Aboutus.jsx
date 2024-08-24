@@ -3,14 +3,12 @@ import '../styles/About.css';
 
 const Aboutus = () => {
   return (
-    <div className="outer">
     <div className="container-ab">
       <section className="about">
         <h1>About Us</h1>
         <p className="intro">
           Welcome to <strong>AuraHire!</strong> We are an innovative application tracking system committed to streamlining the job application process for both applicants and employers. Our mission is to provide an efficient and user-friendly platform where individuals can apply for jobs and track their application status effortlessly.
-        </p> 
-        {/*<stromg> field is used to make the inside items bold</stromg>*/}
+        </p>
         
         <div className="about-section">
           <h2>Our Mission</h2>
@@ -50,7 +48,6 @@ const Aboutus = () => {
           </p>
         </div>
       </section>
-    </div>
     </div>
   );
 };
