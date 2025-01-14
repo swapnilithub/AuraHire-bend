@@ -2,17 +2,26 @@ import React, { useState } from 'react';
 import "../styles2/createjob.css";
 
 const CreateJob = ({ addJob }) => {
-  const [job, setJob] = useState({ title: '', category: '', company: '', location: '', description: '' });
+  const [job, setJob] = useState({
+    title: '',
+    category: '',
+    company: '',
+    location: '',
+    description: ''
+  });
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setJob((prevJob) => ({ ...prevJob, [name]: value }));
+    setJob(prevJob => ({ ...prevJob, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+
     if (!job.title || !job.category || !job.company || !job.location || !job.description) {
-      alert('Please fill in all fields');
+      setError('Please fill in all fields');
       return;
     }
 
@@ -26,22 +35,23 @@ const CreateJob = ({ addJob }) => {
       });
 
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Network response was not ok');
       }
 
       const data = await response.json();
-      addJob(data); // Call addJob to update state in App
+      addJob(data); // Update the state with new job
       setJob({ title: '', category: '', company: '', location: '', description: '' }); // Clear form
       alert('Job added successfully!');
     } catch (error) {
-      console.error('There was a problem with the fetch operation:', error);
-      alert('Failed to add job. Please try again.');
+      setError('Failed to add job. Please try again.');
     }
   };
 
   return (
     <div className="containerjob">
       <h2>Create Job</h2>
+      {error && <p className="error">{error}</p>}
       <form className="job-form" onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Job Title</label>
@@ -61,7 +71,7 @@ const CreateJob = ({ addJob }) => {
         </div>
         <div className="form-group">
           <label>Description</label>
-          <input name="description" value={job.description} onChange={handleChange} placeholder="Description" />
+          <textarea name="description" value={job.description} onChange={handleChange} placeholder="Description" />
         </div>
         <button className="buttoncjob" type="submit">Add Job</button>
       </form>

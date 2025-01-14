@@ -109,7 +109,7 @@ const Home = () => {
           <iframe
             width="560"
             height="315"
-            src="https://www.youtube.com/embed/lwao2gqDoBU?si=M4Kru_PcbhJ6n_qF"
+            src="https://www.youtube.com/embed/3XhtD0SwUcQ?si=hYQtSC5Yr1iJAV05"
             title="YouTube video player"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -118,7 +118,7 @@ const Home = () => {
           <iframe
             width="560"
             height="315"
-            src="https://www.youtube.com/embed/BSb3vOE9slE?si=nsQxaDtsf5BBX2tc"
+            src="https://www.youtube.com/embed/oi11WM6Ugyw?si=IlFJXEH8c9d4DAbl"
             title="YouTube video player"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

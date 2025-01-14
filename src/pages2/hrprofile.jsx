@@ -1,33 +1,51 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles2/hrprofile.css";
 
 function Hrprofile() {
-  const navigate = useNavigate(); // Hook to navigate programmatically
-
-  const profile = {
+  const navigate = useNavigate();
+  const [profile, setProfile] = useState({
     photo: "https://via.placeholder.com/150",
-    name: "Swapnil",
-    phone: "+91-853400220",
-    email: "mailtoswapnilr@example.com",
+    name: "",
+    phone: "",
+    email: "",
     resume: "resume.pdf",
-  };
+  });
+
+  useEffect(() => {
+    const email = localStorage.getItem('email');
+    if (email) {
+      fetch(`/api/profile/hr${email}`)
+        .then(response => response.json())
+        .then(data => setProfile(data))
+        .catch(error => console.error('Error fetching profile:', error));
+    }
+  }, []);
 
   const handleEditClick = () => {
-    navigate("/edit-profile-hr"); // Navigate to the EditProfile2 page
+    navigate("/edit-profile-hr");
+  };
+
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/login"); 
   };
 
   return (
     <div className="hr-profile-container">
       <header className="hr-profile-header">
-        <h1>Hr, {profile.name}!</h1>
-        <ProfileDisplay profile={profile} onEditClick={handleEditClick} />
+        <h1>Hi, {profile.name || "Guest"}!</h1>
+        <ProfileDisplay 
+          profile={profile} 
+          onEditClick={handleEditClick} 
+          onLogout={handleLogout} 
+        />
       </header>
     </div>
   );
 }
 
-function ProfileDisplay({ profile, onEditClick }) {
+function ProfileDisplay({ profile, onEditClick, onLogout }) {
   return (
     <div className="hr-profile-display">
       <div className="hr-photo">
@@ -47,9 +65,11 @@ function ProfileDisplay({ profile, onEditClick }) {
           <strong>Resume:</strong> <a href={profile.resume} download className="hr-resume-link">Download</a>
         </div>
       </div>
-      <button type="button" className="hr-edit-button" onClick={onEditClick}>Edit</button>
-      <button type="button" className="hr-change-password-button">Change Password</button>
-      <button type="button" className="hr-logout-button">Log Out</button>
+      <div className="button-group">
+        <button type="button" className="hr-edit-button" onClick={onEditClick}>Edit</button>
+        <button type="button" className="hr-change-password-button">Change Password</button>
+        <button type="button" className="hr-logout-button" onClick={onLogout}>Log Out</button>
+      </div>
     </div>
   );
 }

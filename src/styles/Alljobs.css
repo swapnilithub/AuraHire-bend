@@ -1,39 +1,46 @@
+/* Container for All Jobs */
 .container-alljobs {
-  padding: 30px;
-  max-width: 100%; /* Increased width for 4x4 grid */
+  margin: 40px;
+  max-width: 100%; /* Full width */
   margin: auto;
-  background-color: #0f291f;
+  background-color: #f2f8ff; /* Light background for the container */
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  background-image: url(J:\AtsAugFend\atsfrontend\src\components\assets\allj.jpg);
+  background-image: url(J:\AtsAugFend\atsfrontend\src\components\assets\allj.jpg); /* Add a light or neutral background image */
+  background-size: cover; /* Ensure image covers the entire area */
 }
 
+/* Title for Jobs Section */
 .title {
   font-size: 2rem;
-  color: black;
+  color: #ffffff; 
   text-align: center;
   margin-bottom: 20px;
 }
 
+
 .jobs-list {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 columns */
-  gap: 20px; /* Space between grid items */
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 20px; 
 }
 
+/* No Jobs Found Styling */
 .no-jobs {
   text-align: center;
   font-size: 1.2rem;
-  color: #333;
-  grid-column: span 4; /* Span all columns when no jobs available */
+  color: #666; 
+  grid-column: span 4;
 }
 
+/* Individual Job Item Styling */
 .job-item {
-  background-color: #ffffff; /* White background for job items */
-  border: 1px solid #ddd;
+  background-color: #79b088; /* White background for job items */
+  border: 1px solid #ffffff; /* Light border */
   padding: 20px;
+  color: rgb(0, 0, 0);
   border-radius: 8px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.05); /* Softer shadow */
   transition: box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
@@ -41,18 +48,19 @@
 }
 
 .job-item:hover {
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.15); /* More prominent shadow on hover */
 }
 
 .job-title {
   font-size: 1.5rem;
-  color: #0f291f; /* Dark green color for job titles */
+  color: #000000;
   margin-bottom: 10px;
 }
 
+/* Apply Button Styling */
 .apply-button {
-  background-color: #0f291f; /* Dark green background */
-  color: #fff;
+  background-color: #34db7f; /* Soft green background for the apply button */
+  color: #000000; /* Black text */
   border: none;
   padding: 10px;
   border-radius: 4px;
@@ -62,6 +70,8 @@
   transition: background-color 0.3s ease;
 }
 
+/* Hover Effect for Apply Button */
 .apply-button:hover {
-  background-color: #0d1b11; /* Darker green on hover */
+  background-color: #000305; /* Darker blue on hover */
+  color: #ffffff; /* White text on hover */
 }

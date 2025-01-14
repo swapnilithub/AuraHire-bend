@@ -1,9 +1,13 @@
-import "../styles/login.css";
+import "../styles/signup.css";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
-  const [formData, setFormData] = useState({ email: "", password: "" });
+const Signuphr = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: ""
+  });
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
@@ -15,20 +19,23 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:8080/api/auth/login", {
+      const response = await fetch("http://localhost:8080/api/hr/auth/signup", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(formData),
       });
 
       const text = await response.text();
 
       if (response.ok) {
+        localStorage.setItem("name", formData.name);
         localStorage.setItem("email", formData.email);
         localStorage.setItem("password", formData.password);
-        navigate("/home");
+        navigate("/homehr");
       } else {
-        setMessage(text || "Login failed");
+        setMessage(text || "Signup failed");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -36,23 +43,31 @@ const Login = () => {
     }
   };
 
-  const handleSignUp = () => {
-    navigate("/signup");
-  };
-
   return (
-    <div className="login-container">
-      <div className="login-image">
+    <div className="signup-container">
+      <div className="signup-image">
         <div className="image-content">
-          <p className="tagline"><black>Aura</black>Hire</p>
-          <p className="subtext">Where world comes for future</p>
+          <p className="tagline">Join the <black>Aura</black>Hire</p>
+          <p className="subtext">
+            Create your account to enjoy all the features of AuraHire.
+          </p>
         </div>
       </div>
-      <div className="login-form-section">
-        <h2>Welcome to <duo>Aura</duo>Hire</h2>
-        <form className="login-form" onSubmit={handleSubmit}>
+      <div className="signup-form-section">
+        <h2>Create your Hr Account</h2>
+        <form className="signup-form" onSubmit={handleSubmit}>
           {message && <p>{message}</p>}
-          <div className="login-form-group">
+          <div className="signup-form-group">
+            <label>Name:</label>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="signup-form-group">
             <label>Email:</label>
             <input
               type="email"
@@ -62,7 +77,7 @@ const Login = () => {
               required
             />
           </div>
-          <div className="login-form-group">
+          <div className="signup-form-group">
             <label>Password:</label>
             <input
               type="password"
@@ -72,17 +87,13 @@ const Login = () => {
               required
             />
           </div>
-          <button className="login-button" type="submit">Sign in</button>
-          <p className="signupp-prompt">
-            New to <duo>Aura</duo>Hire ?{" "}
-            <button className="signupp-button" type="button" onClick={handleSignUp}>
-              Create Account
-            </button>
-          </p>
+          <button className="signup-button" type="submit">
+            Signup
+          </button>
         </form>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default Signuphr;

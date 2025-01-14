@@ -2,7 +2,7 @@ body {
   font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: black;
+  background-color: rgb(255, 255, 255);
 }
 
 .contact-outer-con-one {
@@ -53,10 +53,10 @@ body {
   width: 100%;
   padding: 10px;
   border: 1px solid rgb(121, 44, 44);
-  background-color: rgb(163, 157, 157);
+  background-color: rgb(255, 255, 255);
   border-radius: 4px;
   box-sizing: border-box;
-  color: rgb(112, 25, 25);
+  color: rgb(0, 0, 0);
 }
 
 .form-group-con-one textarea {

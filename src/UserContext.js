@@ -1,10 +1,16 @@
-// UserContext.js
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [userType, setUserType] = useState('student'); // Default or dynamically set
+  const [userType, setUserType] = useState(() => {
+    const storedUserType = localStorage.getItem('userType');
+    return storedUserType ? storedUserType : 'student';
+  });
+
+  useEffect(() => {
+    localStorage.setItem('userType', userType);
+  }, [userType]);
 
   return (
     <UserContext.Provider value={{ userType, setUserType }}>

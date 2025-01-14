@@ -11,7 +11,7 @@ const Layout = ({ jobs, addJob }) => {
   const location = useLocation();
   
   // Routes where Header and Footer should not be displayed
-  const noHeaderFooterRoutes = ['/welcome-page', '/login', '/signup'];
+  const noHeaderFooterRoutes = ['/welcome-page', '/login', '/signup', '/Signup-Hr', '/Login-Hr'];
 
   const [localJobs, setLocalJobs] = useState([]);
 

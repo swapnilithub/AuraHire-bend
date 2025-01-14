@@ -1,51 +1,76 @@
+/* Container for the about section */
 .container-ab {
   padding: 50px;
-  max-width: 800px;
+  max-width: 1000px;
   margin: auto;
   background-color: black;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  max-width:70%;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2); /* Make the box-shadow brighter */
+  max-width: 70%;
+  transition: transform 0.3s ease-in-out; /* Add smooth transform transition */
 }
 
+.container-ab:hover {
+  transform: scale(1.02); /* Slight zoom effect on hover */
+}
+
+.black {
+  color: #D3D3D3; /* Define the black class */
+}
+
+/* Outer wrapper styling */
 .outer {
   background-color: rgb(1, 5, 1);
-  margin-top: 4px;
-}
-.about {
-  padding: 20px;
-  color: rgb(255, 255, 255);
+  margin-top: 0px;
+  padding: 20px 0; /* Add padding to outer for better spacing */
 }
 
+/* About section styling */
+.about {
+  padding: 20px;
+  color: white;
+}
+
+/* About section title */
 .about h1 {
   text-align: center;
   font-size: 2.5em;
   margin-bottom: 20px;
   color: white;
+  text-transform: uppercase; /* Make title uppercase */
+  letter-spacing: 2px; /* Increase spacing for readability */
 }
 
+/* Introduction text */
 .intro {
   text-align: left;
   font-size: 1.2em;
   margin-bottom: 30px;
+  font-style: italic; /* Make introduction text italic */
 }
 
+/* Section styling */
 .about-section {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Add a divider */
 }
 
 .about-section h2 {
   font-size: 2em;
   color: white;
   margin-bottom: 10px;
+  text-transform: uppercase; /* Make section titles uppercase */
 }
 
-.about-section p, .about-section ul {
+.about-section p,
+.about-section ul {
   font-size: 1.1em;
-  line-height: 1.6;
+  line-height: 1.8; /* Slight increase for better readability */
   color: white;
 }
 
+/* List styling in about-section */
 .about-section ul {
   list-style-type: disc;
   padding-left: 20px;
@@ -55,11 +80,200 @@
   margin-bottom: 10px;
 }
 
+/* Link styling inside sections */
 .about-section a {
-  color: white;
+  color: #4CAF50;
   text-decoration: none;
+  transition: color 0.3s ease; /* Smooth transition for hover */
+}
+/* Container for the about section */
+.container-ab {
+  padding: 50px; /* Adjust overall padding for more space */
+  max-width: 1000px;
+  margin: auto;
+  background-color: black;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease-in-out; /* Smooth transform transition */
+}
+
+.container-ab:hover {
+  transform: scale(1.02); /* Slight zoom effect on hover */
+}
+
+.black {
+  color: #D3D3D3; /* Define the black class */
+}
+
+/* Outer wrapper styling */
+.outer {
+  background-color: rgb(1, 5, 1);
+  margin-top: 20px;
+  padding: 20px; 
+}
+
+/* About section styling */
+.about {
+  padding: 20px; 
+  color: white;
+}
+
+/* About section title */
+.about h1 {
+  text-align: center;
+  font-size: 2.5em;
+  margin-bottom: 20px; 
+  color: white;
+  text-transform: uppercase; 
+  letter-spacing: 2px; 
+}
+
+/* Introduction text */
+.intro {
+  text-align: left;
+  font-size: 1.2em;
+  margin-bottom: 30px; 
+  font-style: italic; 
+}
+
+/* Section styling */
+.about-section {
+  margin-bottom: 30px; 
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2); 
+}
+
+.about-section h2 {
+  font-size: 2em;
+  color: white;
+  margin-bottom: 10px; 
+  text-transform: uppercase; 
+}
+
+.about-section p,
+.about-section ul {
+  font-size: 1.1em;
+  line-height: 1.8;
+  color: white;
+}
+
+/* List styling in about-section */
+.about-section ul {
+  list-style-type: disc;
+  padding-left: 20px; 
+}
+
+.about-section ul li {
+  margin-bottom: 10px; 
+}
+
+
+.about-section a {
+  color: #4CAF50; 
+  text-decoration: none;
+  transition: color 0.3s ease; 
 }
 
 .about-section a:hover {
+  color: #66FF66; 
+  text-decoration: underline; 
+}
+
+/* Button styling */
+.about-me-button {
+  padding: 12px 24px; 
+  background-color: #4CAF50; 
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.1em; 
+  margin-top: 20px; 
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); 
+}
+
+.about-me-button:hover {
+  background-color: #66FF66; 
+  transform: scale(1.05); 
+}
+
+
+@media (max-width: 768px) {
+  .container-ab {
+    max-width: 90%;
+    padding: 20px; 
+  }
+
+  .about h1 {
+    font-size: 2em; 
+  }
+
+  .about-section h2 {
+    font-size: 1.6em; 
+  }
+
+  .about-section p,
+  .about-section ul {
+    font-size: 1em; 
+  }
+
+  .about-me-button {
+    font-size: 1em; 
+    padding: 10px 20px; 
+  }
+}
+
+.about-section a:hover {
+  color: #66FF66;
   text-decoration: underline;
+}
+
+/* Button styling */
+.about-me-button {
+  padding: 12px 24px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.1em;
+  margin-top: 20px;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease;
+}
+
+.about-me-button:hover {
+  background-color: #66FF66; 
+  transform: scale(1.05); 
+}
+
+.about-me-button {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+  .container-ab {
+    max-width: 90%;
+    padding: 20px;
+  }
+
+  .about h1 {
+    font-size: 2em; 
+  }
+
+  .about-section h2 {
+    font-size: 1.6em;
+  }
+
+  .about-section p,
+  .about-section ul {
+    font-size: 1em;
+  }
+
+  .about-me-button {
+    font-size: 1em;
+    padding: 10px 20px;
+  }
+  
 }

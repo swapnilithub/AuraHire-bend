@@ -2,8 +2,11 @@ import "../styles/login.css";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
-  const [formData, setFormData] = useState({ email: "", password: "" });
+const Loginhr = () => {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: ""
+  });
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
@@ -15,17 +18,17 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:8080/api/auth/login", {
+      const response = await fetch("http://localhost:8080/api/hr/auth/login", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(formData),
       });
 
       const text = await response.text();
 
       if (response.ok) {
-        localStorage.setItem("email", formData.email);
-        localStorage.setItem("password", formData.password);
         navigate("/home");
       } else {
         setMessage(text || "Login failed");
@@ -37,19 +40,21 @@ const Login = () => {
   };
 
   const handleSignUp = () => {
-    navigate("/signup");
+    navigate("/Signup-Hr");
   };
 
   return (
     <div className="login-container">
       <div className="login-image">
         <div className="image-content">
-          <p className="tagline"><black>Aura</black>Hire</p>
-          <p className="subtext">Where world comes for future</p>
+          <p className="tagline"><strong>Aura</strong>Hire</p>
+          <p className="subtext">
+            Where the world comes for the future
+          </p>
         </div>
       </div>
       <div className="login-form-section">
-        <h2>Welcome to <duo>Aura</duo>Hire</h2>
+        <h2>Welcome to <black>Aura</black>Hire Hr authentication</h2>
         <form className="login-form" onSubmit={handleSubmit}>
           {message && <p>{message}</p>}
           <div className="login-form-group">
@@ -72,9 +77,11 @@ const Login = () => {
               required
             />
           </div>
-          <button className="login-button" type="submit">Sign in</button>
+          <button className="login-button" type="submit">
+            Sign in
+          </button>
           <p className="signupp-prompt">
-            New to <duo>Aura</duo>Hire ?{" "}
+            New to <strong>Aura</strong>Hire?{" "}
             <button className="signupp-button" type="button" onClick={handleSignUp}>
               Create Account
             </button>
@@ -85,4 +92,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Loginhr;

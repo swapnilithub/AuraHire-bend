@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
+    name: "",
     email: "",
     password: ""
   });
@@ -18,26 +19,33 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:8080/api/auth/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        "http://localhost:8080/api/auth/signup",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       const text = await response.text();
 
+      console.log('Response Status:', response.status);
+      console.log('Response Body:', text);
+
       if (response.ok) {
+        localStorage.setItem("name", formData.name);
         localStorage.setItem("email", formData.email);
         localStorage.setItem("password", formData.password);
 
         navigate("/home");
       } else {
-        setMessage(text || "Signup failed");
+        setMessage(text || "Signup failed. Please try again.");
       }
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Network Error:", error);
       setMessage("An error occurred. Please try again.");
     }
   };
@@ -46,9 +54,9 @@ const Signup = () => {
     <div className="signup-container">
       <div className="signup-image">
         <div className="image-content">
-          <p className="tagline">Join the <strong>Aura</strong>Hire</p>
+          <p className="tagline">Join the <black>Aura</black>Hire for user</p>
           <p className="subtext">
-            Create your account to enjoy all the features of Lovebirds.
+            Create your account to enjoy all the features of AuraHire.
           </p>
         </div>
       </div>
@@ -56,6 +64,16 @@ const Signup = () => {
         <h2>Create your Account</h2>
         <form className="signup-form" onSubmit={handleSubmit}>
           {message && <p>{message}</p>}
+          <div className="signup-form-group">
+            <label>Name:</label>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
+          </div>
           <div className="signup-form-group">
             <label>Email:</label>
             <input
