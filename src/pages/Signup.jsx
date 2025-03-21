@@ -1,12 +1,13 @@
-import "../styles/signup.css";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../styles/signup.css";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    password: ""
+    password: "",
+    role: "user", // Default role
   });
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
@@ -19,30 +20,20 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(
-        "http://localhost:8080/api/auth/signup",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+      const response = await fetch("http://localhost:5000/api/users/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
-      const text = await response.text();
-
-      console.log('Response Status:', response.status);
-      console.log('Response Body:', text);
+      const data = await response.json();
 
       if (response.ok) {
-        localStorage.setItem("name", formData.name);
-        localStorage.setItem("email", formData.email);
-        localStorage.setItem("password", formData.password);
-
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user)); // Store user info
         navigate("/home");
       } else {
-        setMessage(text || "Signup failed. Please try again.");
+        setMessage(data.message || "Signup failed. Please try again.");
       }
     } catch (error) {
       console.error("Network Error:", error);
@@ -54,7 +45,7 @@ const Signup = () => {
     <div className="signup-container">
       <div className="signup-image">
         <div className="image-content">
-          <p className="tagline">Join the <black>Aura</black>Hire for user</p>
+          <p className="tagline">Join the <black>Aura</black>Hire</p>
           <p className="subtext">
             Create your account to enjoy all the features of AuraHire.
           </p>

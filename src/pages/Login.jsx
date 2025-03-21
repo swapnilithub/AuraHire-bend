@@ -15,20 +15,20 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:8080/api/auth/login", {
+      const response = await fetch("http://localhost:5000/api/users/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
-      const text = await response.text();
+      const data = await response.json();
 
       if (response.ok) {
-        localStorage.setItem("email", formData.email);
-        localStorage.setItem("password", formData.password);
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user)); // Store user info
         navigate("/home");
       } else {
-        setMessage(text || "Login failed");
+        setMessage(data.message || "Login failed");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -45,7 +45,7 @@ const Login = () => {
       <div className="login-image">
         <div className="image-content">
           <p className="tagline"><black>Aura</black>Hire</p>
-          <p className="subtext">Where world comes for future</p>
+          <p className="subtext">Where the world comes for the future</p>
         </div>
       </div>
       <div className="login-form-section">
@@ -73,9 +73,9 @@ const Login = () => {
             />
           </div>
           <button className="login-button" type="submit">Sign in</button>
-          <p className="signupp-prompt">
-            New to <duo>Aura</duo>Hire ?{" "}
-            <button className="signupp-button" type="button" onClick={handleSignUp}>
+          <p className="signup-prompt">
+            New to <duo>Aura</duo>Hire?{" "}
+            <button className="signup-button" type="button" onClick={handleSignUp}>
               Create Account
             </button>
           </p>
