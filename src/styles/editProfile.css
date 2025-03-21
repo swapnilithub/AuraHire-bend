@@ -1,9 +1,7 @@
-/* editProfile.css */
 .edit-profile-container {
-    max-width: 600px;
+    max-width: 900px;
     margin: 0 auto;
     padding: 20px;
-    background-color: black; /* Dark green background */
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-top: 40px;
@@ -54,7 +52,7 @@
     padding: 10px 30px;
     border: none;
     border-radius: 4px;
-    background-color: #0f291f; /* Dark green background */
+    background-color: #113326; /* Dark green background */
     color: #ffffff; /* White text color */
     font-size: 1rem;
     cursor: pointer;

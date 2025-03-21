@@ -14,7 +14,9 @@
     "react-slick": "^0.30.2",
     "reactstrap": "^9.2.2",
     "slick-carousel": "^1.8.1",
-    "proxy": "http://localhost:8080",
+    "proxy": "http://localhost:3000",
+    
+
 
     "web-vitals": "^2.1.4"
   },

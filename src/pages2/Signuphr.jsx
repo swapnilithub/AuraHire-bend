@@ -1,13 +1,12 @@
+import "../styles/signup.css";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles/signup.css";
 
-const Signup = () => {
+const Signuphr = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    password: "",
-    role: "user", // Default role
+    password: ""
   });
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
@@ -20,24 +19,26 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:5000/api/users/register", {
+      const response = await fetch("http://localhost:8080/api/hr/auth/signup", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(formData),
       });
-      //commet added
 
-      const data = await response.json();
+      const text = await response.text();
 
       if (response.ok) {
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("user", JSON.stringify(data.user)); // Store user info
-        navigate("/home");
+        localStorage.setItem("name", formData.name);
+        localStorage.setItem("email", formData.email);
+        localStorage.setItem("password", formData.password);
+        navigate("/homehr");
       } else {
-        setMessage(data.message || "Signup failed. Please try again.");
+        setMessage(text || "Signup failed");
       }
     } catch (error) {
-      console.error("Network Error:", error);
+      console.error("Error:", error);
       setMessage("An error occurred. Please try again.");
     }
   };
@@ -53,7 +54,7 @@ const Signup = () => {
         </div>
       </div>
       <div className="signup-form-section">
-        <h2>Create your Account</h2>
+        <h2>Create your Hr Account</h2>
         <form className="signup-form" onSubmit={handleSubmit}>
           {message && <p>{message}</p>}
           <div className="signup-form-group">
@@ -95,4 +96,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Signuphr;

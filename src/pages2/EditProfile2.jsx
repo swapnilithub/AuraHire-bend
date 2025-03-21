@@ -1,16 +1,29 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import "../styles2/editProfile2.css";
 
 function EditProfile2() {
   const [profile, setProfile] = useState({
-    name: "Swapnil",
-    phone: "+91-853400220",
-    email: "mailtoswapnilr@example.com",
-    resume: "resume.pdf",
+    name: "",
+    phone: "",
+    email: "",
+    resume: "",
+    photo: "",
   });
 
+  const { email } = useParams(); 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (email) {
+      fetch(`http://localhost:8080/api/profile-hr/${email}`)
+        .then(response => response.json())
+        .then(data => setProfile(data))
+        .catch(error => console.error('Error fetching profile:', error));
+    } else {
+      navigate('/'); 
+    }
+  }, [email, navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -19,13 +32,35 @@ function EditProfile2() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  
-    navigate("/");
+
+    fetch(`/api/profile-hr/${email}`, {
+      method: 'PUT', 
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(profile),
+    })
+      .then(response => {
+        if (!response.ok) {
+          return response.text().then(text => {
+            console.error(`Failed to update profile: ${text}`);
+            throw new Error(text);
+          });
+        }
+        return response.json();
+      })
+      .then(() => {
+        navigate("/"); 
+      })
+      .catch(error => {
+        console.error('Error updating profile:', error);
+        alert(`Failed to update profile: ${error.message}`);
+      });
   };
 
   return (
     <div className="edit-profile-container">
-      <h1>Edit Profile hr</h1>
+      <h1>Edit Profile Hr</h1>
       <form onSubmit={handleSubmit}>
         <label>
           Photo URL:

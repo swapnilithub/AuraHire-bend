@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import "../styles/editProfile.css";
 
 function EditProfile() {
@@ -8,16 +7,18 @@ function EditProfile() {
     phone: "",
     email: "",
     resume: "",
-    photo: "", 
+    photo: "",
   });
 
-  const navigate = useNavigate();
+  const [message, setMessage] = useState(""); // New state for success message
 
   useEffect(() => {
     const email = localStorage.getItem('email');
     const password = localStorage.getItem('password');
 
-    if (email) {
+    if (!email) {
+      alert("Please log in to edit your profile.");
+    } else {
       fetch(`http://localhost:8080/api/profile?email=${email}`, {
         method: 'GET',
         headers: {
@@ -25,7 +26,12 @@ function EditProfile() {
           'Authorization': `Basic ${btoa(`${email}:${password}`)}`
         }
       })
-        .then(response => response.json())
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("Error fetching profile data");
+          }
+          return response.json();
+        })
         .then(data => setProfile(data))
         .catch(error => console.error('Error fetching profile data:', error));
     }
@@ -39,20 +45,21 @@ function EditProfile() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Update profile data
     fetch('http://localhost:8080/api/profile', {
-      method: 'PUT',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Basic ${btoa(`${profile.email}:${localStorage.getItem('password')}`)}` // Include basic auth if needed
+        'Authorization': `Basic ${btoa(`${profile.email}:${localStorage.getItem('password')}`)}`
       },
       body: JSON.stringify(profile),
     })
       .then(response => {
         if (response.ok) {
-          navigate("/"); // Redirect to home or another page on success
+          setMessage("Profile updated successfully!"); // Show success message
         } else {
-          console.error('Failed to update profile');
+          return response.text().then(text => {
+            console.error('Failed to update profile:', text);
+          });
         }
       })
       .catch(error => console.error('Error updating profile:', error));
@@ -109,6 +116,7 @@ function EditProfile() {
         </label>
         <button type="submit">Save Changes</button>
       </form>
+      {message && <p>{message}</p>} {/* Display success message */}
     </div>
   );
 }

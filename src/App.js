@@ -1,12 +1,6 @@
 import React, { useState } from 'react';
-import { Client } from 'appwrite';
 import Layout from './components/layout/Layout';
 
-// Initialize Appwrite SDK
-const client = new Client();
-client
-  .setEndpoint('https://cloud.appwrite.io/v1') // Replace with your Appwrite endpoint
-  .setProject('66bae69a002db73f2ac4'); // Replace with your Project ID
 
 const App = () => {
   const [jobs, setJobs] = useState([

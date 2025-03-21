@@ -11,7 +11,7 @@ const Homehr = () => {
   };
 
   const handleViewApplicants = () => {
-    console.log('View Applicants button clicked');
+    navigate('/jobs/:id');
   };
 
   return (

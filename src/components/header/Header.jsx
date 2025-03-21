@@ -18,7 +18,7 @@ const Header = () => {
           <ul>
             <li><a href="/home">Home</a></li>
             <li><a href="/about">About Us</a></li>
-            <li><a href="/contact">Contact Us</a></li>
+            <li><a href="/contact-us">Contact Us</a></li>
             <li><a href="/jobs">All Jobs</a></li>
             <li><a href="/profile">My Profile</a></li>
           </ul>

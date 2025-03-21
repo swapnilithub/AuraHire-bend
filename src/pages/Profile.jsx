@@ -5,16 +5,18 @@ import "../styles/profile.css";
 function Profile() {
   const navigate = useNavigate();
   const [profile, setProfile] = useState({
-    photo: "https://drive.google.com/file/d/1Am4DtRb-_0ZqOrUjYe7kLHgjh5WM9yO1/view?usp=sharing",
-    name: "Swapnil",
-    phone: "+91-853400220",
+    photo: "https://drive.google.com/uc?export=view&id=1Am4DtRb-_0ZqOrUjYe7kLHgjh5WM9yO1",
+    name: "",
+    phone: "",
     email: "",
     resume: "resume.pdf",
   });
 
   useEffect(() => {
     const email = localStorage.getItem('email');
-    const updatedProfile = { ...profile, email };
+    const name = localStorage.getItem('name') || ""; // Replace with stored or default name
+    const phone = localStorage.getItem('phone') || "+91-"; // Replace with stored or default phone
+    const updatedProfile = { ...profile, email, name, phone };
     setProfile(updatedProfile);
   }, []);
 
@@ -25,7 +27,7 @@ function Profile() {
   return (
     <div className="profile-container">
       <header className="profile-header">
-        <h1>Hi, {profile.name}!</h1>
+        <h1>Hi, {profile.name || "Guest"}!</h1>
         <ProfileDisplay profile={profile} onEditClick={handleEditClick} />
       </header>
     </div>

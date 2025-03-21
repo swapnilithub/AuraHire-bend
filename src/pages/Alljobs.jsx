@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
 import "../styles/Alljobs.css";
 
 const Alljobs = () => {
   const [jobs, setJobs] = useState([]);
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchJobs = async () => {
       try {
         const response = await fetch('http://localhost:8080/api/jobs');
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          const errorText = await response.text();
+          throw new Error(`Network response was not ok: ${errorText}`);
         }
         const data = await response.json();
         setJobs(data);
@@ -24,7 +25,6 @@ const Alljobs = () => {
   }, []);
 
   const handleApply = (job) => {
-    // Navigate to job details page with job id as a parameter
     navigate(`/job-details/${job.id}`);
   };
 
