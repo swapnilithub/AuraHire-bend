@@ -15,7 +15,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:5000/api/users/login", {
+      const response = await fetch("http://localhost:15000/api/users/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -23,21 +23,17 @@ const Login = () => {
 
       const data = await response.json();
 
-      if (response.ok) {
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("user", JSON.stringify(data.user)); // Store user info
-        navigate("/home");
-      } else {
-        setMessage(data.message || "Login failed");
+      if (!response.ok) {
+        throw new Error(data.message || "Login failed");
       }
+
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user)); // Store user info
+      navigate("/home");
     } catch (error) {
       console.error("Error:", error);
-      setMessage("An error occurred. Please try again.");
+      setMessage(error.message || "An error occurred. Please try again.");
     }
-  };
-
-  const handleSignUp = () => {
-    navigate("/signup");
   };
 
   return (
@@ -73,12 +69,6 @@ const Login = () => {
             />
           </div>
           <button className="login-button" type="submit">Sign in</button>
-          <p className="signup-prompt">
-            New to <duo>Aura</duo>Hire?{" "}
-            <button className="signup-button" type="button" onClick={handleSignUp}>
-              Create Account
-            </button>
-          </p>
         </form>
       </div>
     </div>

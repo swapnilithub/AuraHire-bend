@@ -9,20 +9,41 @@ const Alljobs = () => {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const response = await fetch('http://localhost:8080/api/jobs');
-        if (!response.ok) {
-          const errorText = await response.text();
-          throw new Error(`Network response was not ok: ${errorText}`);
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+          console.warn("No token found. Redirecting to login.");
+          navigate("/login");  // Redirect to login if no token
+          return;
         }
+
+        const response = await fetch("http://localhost:15000/api/jobs", {
+          method: "GET",
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!response.ok) {
+          if (response.status === 403 || response.status === 401) {
+            console.warn("Unauthorized access. Redirecting to login.");
+            localStorage.removeItem("token");
+            navigate("/login");
+            return;
+          }
+          throw new Error(`Network response was not ok: ${await response.text()}`);
+        }
+
         const data = await response.json();
         setJobs(data);
       } catch (error) {
-        console.error('Error fetching jobs:', error);
+        console.error("Error fetching jobs:", error);
       }
     };
 
     fetchJobs();
-  }, []);
+  }, [navigate]);
 
   const handleApply = (job) => {
     navigate(`/job-details/${job.id}`);
