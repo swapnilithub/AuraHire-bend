@@ -1,112 +1,127 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import "../styles/JobDetails.css";
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { Spinner, Container, Card, Button, Alert } from "react-bootstrap";
 
 const JobDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [job, setJob] = useState(null);
-  const [profile, setProfile] = useState(null);
-  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState(null);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-      alert("You must log in to apply for jobs.");
-      navigate("/login");
-      return;
-    }
-
-    const fetchJob = async () => {
+    const fetchJobDetails = async () => {
       try {
-        const response = await fetch(`http://localhost:15000/api/jobs/${id}`, {
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+          console.warn("No token found. Redirecting to login.");
+          navigate("/login");
+          return;
+        }
+
+        const response = await fetch(`http://localhost:15000/api/job/${id}`, {
           method: "GET",
           headers: {
-            "Authorization": `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
         });
 
+        console.log("Raw response:", response); // ✅ Debugging API response
+
         if (!response.ok) {
-          throw new Error(`Failed to fetch job details: ${response.status} ${response.statusText}`);
+          throw new Error(`Failed to fetch job details (Status: ${response.status})`);
+        }
+
+        const contentType = response.headers.get("content-type");
+        if (!contentType || !contentType.includes("application/json")) {
+          throw new Error(`Unexpected response type: ${contentType}`);
         }
 
         const data = await response.json();
+        console.log("Job Data Received:", data); // ✅ Debugging Data
         setJob(data);
       } catch (error) {
-        setError(error.message);
+        console.error("Error fetching job details:", error);
+        setMessage({ type: "danger", text: error.message });
       }
     };
 
-    const fetchProfile = () => {
-      const userId = localStorage.getItem("user_id");
-      const email = localStorage.getItem("email");
-      const name = localStorage.getItem("name");
-
-      if (userId && email && name) {
-        setProfile({ userId, email, name });
-      } else {
-        console.warn("Profile data missing from localStorage. Redirecting to login.");
-        localStorage.clear();
-        alert("Session expired. Please log in again.");
-        navigate("/login");
-      }
-    };
-
-    fetchJob();
-    fetchProfile();
+    fetchJobDetails();
   }, [id, navigate]);
 
   const handleApply = async () => {
-    if (!profile) {
-      alert("User profile not found! Please log in.");
+    setLoading(true);
+    setMessage(null);
+
+    const user = JSON.parse(localStorage.getItem("user"));
+    const token = localStorage.getItem("token");
+
+    if (!user || !token) {
+      setMessage({ type: "danger", text: "User information missing. Please log in again." });
+      setLoading(false);
       return;
     }
 
-    const applicationData = {
-      user_id: profile.userId,
-      email: profile.email,
-      name: profile.name,
-      job_id: id,
-    };
+    const { id: user_id, email, name } = user;
+    const jobIdNumber = parseInt(id, 10); // ✅ Convert job_id to number
 
     try {
-      const token = localStorage.getItem("token");
-      const response = await fetch(`http://localhost:15000/api/applicants/apply`, {
+      const response = await fetch(`http://localhost:15000/api/apply/${id}`, {
         method: "POST",
         headers: {
-          "Authorization": `Bearer ${token}`,
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(applicationData),
+        body: JSON.stringify({ user_id, email, name, job_id: jobIdNumber }), // ✅ Send job_id as number
       });
 
+      console.log("Application Response:", response); // ✅ Debugging API response
+
       if (!response.ok) {
-        const errorMessage = await response.text();
-        throw new Error(`Failed to apply: ${errorMessage}`);
+        const errorText = await response.text();
+        throw new Error(`Error: ${response.status} - ${errorText}`);
       }
 
-      alert("Application submitted successfully!");
+      const data = await response.json();
+      console.log("Application Success:", data); // ✅ Debugging success response
+
+      setMessage({ type: "success", text: "Application submitted successfully!" });
     } catch (error) {
-      console.error("Error applying to job:", error);
-      alert("Error submitting application");
+      console.error("Error applying for job:", error);
+      setMessage({ type: "danger", text: error.message });
+    } finally {
+      setLoading(false);
     }
   };
 
-  if (error) return <p>Error: {error}</p>;
-  if (!job) return <p>Loading job details...</p>;
+  if (!job)
+    return (
+      <Container className="text-center mt-5">
+        <Spinner animation="border" variant="primary" />
+        <p>Loading job details...</p>
+      </Container>
+    );
 
   return (
-    <div className="job-details">
-      <h1>{job.title}</h1>
-      <p><strong>Category:</strong> {job.category}</p>
-      <p><strong>Company:</strong> {job.company}</p>
-      <p><strong>Location:</strong> {job.location}</p>
-      <p><strong>Description:</strong> {job.description}</p>
+    <Container className="mt-5">
+      <Card className="shadow-lg p-4">
+        <Card.Body>
+          <h1 className="text-primary">{job.title}</h1>
+          <hr />
+          <p><strong>Company:</strong> {job.company}</p>
+          <p><strong>Location:</strong> {job.location}</p>
+          <p><strong>Description:</strong> {job.description}</p>
 
-      <button type="button" onClick={handleApply}>Apply Now</button>
-    </div>
+          {message && <Alert variant={message.type}>{message.text}</Alert>}
+
+          <Button variant="success" className="mt-3" onClick={handleApply} disabled={loading}>
+            {loading ? "Applying..." : "Apply Now"}
+          </Button>
+        </Card.Body>
+      </Card>
+    </Container>
   );
 };
 

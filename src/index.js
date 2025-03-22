@@ -7,6 +7,8 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { BrowserRouter as Router } from "react-router-dom";
 import { UserProvider } from './UserContext';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 
 import './styles2/createjob.css';

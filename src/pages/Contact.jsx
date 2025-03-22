@@ -8,7 +8,7 @@ const Contact = () => {
     const formData = new FormData(event.target);
     
     try {
-      const response = await fetch('http://localhost:8080/api/contact', {
+      const response = await fetch('http://localhost:15000/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
