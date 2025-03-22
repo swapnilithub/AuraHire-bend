@@ -1,66 +1,164 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles/profile.css";
+import {
+  Container,
+  Card,
+  TextField,
+  Button,
+  Avatar,
+  CircularProgress,
+  Alert,
+  Typography,
+  Grid,
+} from "@mui/material";
+import { Edit, Save, Logout } from "@mui/icons-material";
 
-function Profile() {
+const ProfilePage = () => {
   const navigate = useNavigate();
   const [profile, setProfile] = useState({
-    photo: "https://drive.google.com/uc?export=view&id=1Am4DtRb-_0ZqOrUjYe7kLHgjh5WM9yO1",
+    id: "",
+    email: "",
     name: "",
     phone: "",
-    email: "",
-    resume: "resume.pdf",
+    photo: "",
+    resume: "",
   });
+  const [isEditing, setIsEditing] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [alert, setAlert] = useState({ show: false, severity: "", message: "" });
 
   useEffect(() => {
-    const email = localStorage.getItem('email');
-    const name = localStorage.getItem('name') || ""; // Replace with stored or default name
-    const phone = localStorage.getItem('phone') || "+91-"; // Replace with stored or default phone
-    const updatedProfile = { ...profile, email, name, phone };
-    setProfile(updatedProfile);
-  }, []);
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const token = localStorage.getItem("token");
 
-  const handleEditClick = () => {
-    navigate("/edit-profile");
+    setProfile((prevProfile) => ({
+      ...prevProfile,
+      id: storedUser.id,
+      email: storedUser.email,
+      name: storedUser.name,
+    }));
+
+    fetchProfile(storedUser.id, token);
+  }, [navigate]);
+
+  const fetchProfile = async (id, token) => {
+    try {
+      setIsLoading(true);
+      const response = await fetch(`http://localhost:15000/api/profile`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setProfile((prevProfile) => ({
+          ...prevProfile,
+          phone: data.phone || "",
+          photo: data.photo || "",
+          resume: data.resume || "",
+        }));
+      } else {
+        console.error("Error fetching profile:", data.error);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleChange = (e) => {
+    setProfile({ ...profile, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const updatedProfile = { ...profile };
+    const token = localStorage.getItem("token");
+
+    try {
+      const response = await fetch("http://localhost:15000/api/profile", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(updatedProfile),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setAlert({ show: true, severity: "success", message: data.message });
+        setIsEditing(false);
+        fetchProfile(profile.id, token);
+      } else {
+        setAlert({ show: true, severity: "error", message: data.error });
+      }
+    } catch (error) {
+      setAlert({
+        show: true,
+        severity: "error",
+        message: "An error occurred while updating your profile.",
+      });
+      console.error("Submit error:", error);
+    }
   };
 
   return (
-    <div className="profile-container">
-      <header className="profile-header">
-        <h1>Hi, {profile.name || "Guest"}!</h1>
-        <ProfileDisplay profile={profile} onEditClick={handleEditClick} />
-      </header>
-    </div>
-  );
-}
+    <Container maxWidth="md" sx={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <Card sx={{ p: 4, boxShadow: 3, width: "100%", minHeight: "70vh", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+        {alert.show && (
+          <Alert severity={alert.severity} onClose={() => setAlert({ show: false })}>
+            {alert.message}
+          </Alert>
+        )}
 
-function ProfileDisplay({ profile, onEditClick }) {
-  return (
-    <div className="profile-display">
-      <div className="photo">
-        <img src={profile.photo} alt="Profile" className="profile-photo" />
-      </div>
-      <div className="details">
-        <div className="detail">
-          <strong>Name:</strong> {profile.name}
-        </div>
-        <div className="detail">
-          <strong>Phone:</strong> {profile.phone}
-        </div>
-        <div className="detail">
-          <strong>Email:</strong> {profile.email}
-        </div>
-        <div className="detail">
-          <strong>Resume:</strong> <a href={profile.resume} download className="resume-link">Download</a>
-        </div>
-      </div>
-      <div className="button-group">
-        <button type="button" className="edit-buttonn" onClick={onEditClick}>Edit</button>
-        <button type="button" className="change-password-button">Change Password</button>
-        <button type="button" className="logout-button">Log Out</button>
-      </div>
-    </div>
-  );
-}
+        {isLoading ? (
+          <CircularProgress sx={{ alignSelf: "center" }} />
+        ) : isEditing ? (
+          <form onSubmit={handleSubmit}>
+            <TextField label="Name" fullWidth variant="outlined" value={profile.name} disabled sx={{ my: 2 }} />
+            <TextField label="Email" fullWidth variant="outlined" value={profile.email} disabled sx={{ my: 2 }} />
+            <TextField label="Phone" name="phone" fullWidth variant="outlined" value={profile.phone} onChange={handleChange} required sx={{ my: 2 }} />
+            <TextField label="Photo URL" name="photo" fullWidth variant="outlined" value={profile.photo} onChange={handleChange} required sx={{ my: 2 }} />
+            <TextField label="Resume URL" name="resume" fullWidth variant="outlined" value={profile.resume} onChange={handleChange} required sx={{ my: 2 }} />
+            <Button variant="contained" color="primary" type="submit" startIcon={<Save />}>Save</Button>
+            <Button variant="outlined" color="secondary" sx={{ ml: 2 }} onClick={() => setIsEditing(false)}>Cancel</Button>
+          </form>
+        ) : (
+          <Grid container alignItems="center" spacing={3} sx={{ height: "100%" }}>
+            {/* Profile Picture on the Left */}
+            <Grid item xs={3} sx={{ display: "flex", justifyContent: "center" }}>
+              <Avatar src={profile.photo || "https://via.placeholder.com/150"} sx={{ width: 140, height: 140 }} />
+            </Grid>
 
-export default Profile;
+            {/* Profile Info in the Center */}
+            <Grid item xs={6} sx={{ textAlign: "center" }}>
+              <Typography variant="h5" sx={{ fontWeight: "bold", mb: 1 }}>Name: {profile.name}</Typography>
+              <Typography variant="h6" sx={{ mb: 1 }}>Email: {profile.email}</Typography>
+              <Typography variant="h6" sx={{ mb: 1 }}>Phone: {profile.phone}</Typography>
+              <Typography variant="h6" sx={{ mb: 2 }}>
+                Resume: <a href={profile.resume} target="_blank" rel="noopener noreferrer">View Resume</a>
+              </Typography>
+            </Grid>
+
+            {/* Edit and Logout Buttons on the Right */}
+            <Grid item xs={3} sx={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 2 }}>
+              <Button variant="contained" color="warning" startIcon={<Edit />} onClick={() => setIsEditing(true)} sx={{ width: "100%" }}>
+                Edit
+              </Button>
+              <Button variant="contained" color="error" startIcon={<Logout />} onClick={() => navigate("/login")} sx={{ width: "100%" }}>
+                Logout
+              </Button>
+            </Grid>
+          </Grid>
+        )}
+      </Card>
+    </Container>
+  );
+};
+
+export default ProfilePage;

@@ -1,88 +1,90 @@
-body {
-  font-family: 'Arial', sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: rgb(255, 255, 255);
-}
+/* Contact.css */
 
 .contact-outer-con-one {
+  padding: 20px;
+  font-family: Arial, sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  padding: 20px;
-  background-color: rgb(1, 5, 1);
+  background-color: white;
+  width: 100%;
 }
 
 .contact-section-con-one {
-  background-color: black;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  max-width: 600px;
   width: 100%;
-  max-width: 70%;
-  margin-top: -150px;
+  max-width: 100%;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
 }
 
 .contact-section-con-one h2 {
-  text-align: center;
-  font-size: 2em;
+  color: black;
   margin-bottom: 20px;
-  color: whitesmoke;
 }
 
 .contact-form-con-one {
   display: flex;
   flex-direction: column;
-  color: whitesmoke;
+  gap: 10px;
+  width: 100%;
 }
 
 .form-group-con-one {
-  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  width: 100%;
 }
 
 .form-group-con-one label {
-  display: block;
   font-weight: bold;
   margin-bottom: 5px;
+  color: black;
 }
 
 .form-group-con-one input,
 .form-group-con-one textarea {
   width: 100%;
-  padding: 10px;
-  border: 1px solid rgb(121, 44, 44);
-  background-color: rgb(255, 255, 255);
+  padding: 12px;
+  border: 1px solid black;
   border-radius: 4px;
-  box-sizing: border-box;
-  color: rgb(0, 0, 0);
+  color: black;
+  background-color: white;
+  font-size: 16px;
+}
+
+.form-group-con-one input::placeholder,
+.form-group-con-one textarea::placeholder {
+  color: black;
 }
 
 .form-group-con-one textarea {
-  height: 150px;
+  min-height: 100px;
   resize: vertical;
 }
 
+.button-wrapper-contact-con-one {
+  margin-top: 10px;
+  width: 100%;
+}
+
 .submit-button-con-one {
-  background-color: rgb(5, 41, 17);
-  color: rgb(187, 166, 166);
+  width: 100%;
+  padding: 12px;
+  background-color: black;
+  color: white;
   border: none;
-  border-radius: 5px;
-  padding: 10px 500px;
+  border-radius: 4px;
   cursor: pointer;
-  font-size: 1.1em;
-  align-self: center;
+  font-weight: bold;
   transition: background-color 0.3s ease;
-  border-radius: 30%;
+  font-size: 16px;
 }
 
 .submit-button-con-one:hover {
-  background-color: #000000;
-}
-
-.button-wrapper-contact-con-one {
-  display: flex;
-  justify-content: space-around;
-  width: 100%;
+  background-color: #333;
 }

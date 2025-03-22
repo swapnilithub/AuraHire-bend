@@ -20,6 +20,8 @@ import Loginhr from '../pages2/Loginhr';
 import Signuphr from '../pages2/Signuphr';
 import EditProfile2 from '../pages2/EditProfile2';
 import Me from '../pages/Me';
+import ResumeBuilder from '../pages/resumeBuilder';
+import ResumeScore from '../pages/resumeScore';
 
 const Routers = ({ jobs, addJob }) => {
   return (
@@ -46,6 +48,8 @@ const Routers = ({ jobs, addJob }) => {
       <Route path="/edit-profile-hr" element={<EditProfile2 />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/resume-builder" element={<ResumeBuilder />} />
+      <Route path="/resume-score" element={<ResumeScore />} />
     </Routes>
   );
 };
