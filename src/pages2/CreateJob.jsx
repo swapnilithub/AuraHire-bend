@@ -10,33 +10,57 @@ const CreateJob = ({ addJob }) => {
     description: ''
   });
   const [error, setError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setJob(prevJob => ({ ...prevJob, [name]: value }));
   };
 
+  // Handle form submit
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-
+    
     if (!job.title || !job.category || !job.company || !job.location || !job.description) {
       setError('Please fill in all fields');
       return;
     }
 
+    // Get user from localStorage and extract hr_id
+    const user = JSON.parse(localStorage.getItem('user')); // Assuming user object is stored in LS
+    const hr_id = user?.id; // Extract hr_id from user object
+
+    if (!hr_id) {
+      setError('No HR ID found. Please login again.');
+      return;
+    }
+
+    const token = localStorage.getItem('token'); // Get the token from local storage
+
+    if (!token) {
+      setError('No token found. Please login again.');
+      return;
+    }
+
     try {
-      const response = await fetch('http://localhost:8080/api/jobs', {
+      setIsSubmitting(true);
+      const response = await fetch('http://localhost:15000/api/jobs', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}` // Pass token in header
         },
-        body: JSON.stringify(job),
+        body: JSON.stringify({
+          ...job,
+          hr_id // Send hr_id in the payload
+        }),
       });
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || 'Network response was not ok');
+        throw new Error(errorData.error || 'Failed to create job');
       }
 
       const data = await response.json();
@@ -44,7 +68,9 @@ const CreateJob = ({ addJob }) => {
       setJob({ title: '', category: '', company: '', location: '', description: '' }); // Clear form
       alert('Job added successfully!');
     } catch (error) {
-      setError('Failed to add job. Please try again.');
+      setError(error.message || 'Failed to add job. Please try again.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -73,7 +99,13 @@ const CreateJob = ({ addJob }) => {
           <label>Description</label>
           <textarea name="description" value={job.description} onChange={handleChange} placeholder="Description" />
         </div>
-        <button className="buttoncjob" type="submit">Add Job</button>
+        <button 
+          className="buttoncjob" 
+          type="submit" 
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? 'Submitting...' : 'Add Job'}
+        </button>
       </form>
     </div>
   );

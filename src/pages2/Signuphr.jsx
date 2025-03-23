@@ -6,7 +6,10 @@ const Signuphr = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    password: ""
+    password: "",
+    phone: "",
+    photo: "",
+    resume: ""
   });
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
@@ -19,7 +22,7 @@ const Signuphr = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:8080/api/hr/auth/signup", {
+      const response = await fetch("http://localhost:15000/api/signup-hr", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -30,9 +33,14 @@ const Signuphr = () => {
       const text = await response.text();
 
       if (response.ok) {
+        // Store necessary data in localStorage
         localStorage.setItem("name", formData.name);
         localStorage.setItem("email", formData.email);
-        localStorage.setItem("password", formData.password);
+        localStorage.setItem("phone", formData.phone);
+        localStorage.setItem("photo", formData.photo);
+        localStorage.setItem("resume", formData.resume);
+        
+        // Navigate to the next page
         navigate("/homehr");
       } else {
         setMessage(text || "Signup failed");
@@ -47,7 +55,9 @@ const Signuphr = () => {
     <div className="signup-container">
       <div className="signup-image">
         <div className="image-content">
-          <p className="tagline">Join the <black>Aura</black>Hire</p>
+          <p className="tagline">
+            Join the <strong>Aura</strong>Hire
+          </p>
           <p className="subtext">
             Create your account to enjoy all the features of AuraHire.
           </p>
@@ -85,6 +95,33 @@ const Signuphr = () => {
               value={formData.password}
               onChange={handleChange}
               required
+            />
+          </div>
+          <div className="signup-form-group">
+            <label>Phone:</label>
+            <input
+              type="text"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="signup-form-group">
+            <label>Photo URL:</label>
+            <input
+              type="text"
+              name="photo"
+              value={formData.photo}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="signup-form-group">
+            <label>Resume URL:</label>
+            <input
+              type="text"
+              name="resume"
+              value={formData.resume}
+              onChange={handleChange}
             />
           </div>
           <button className="signup-button" type="submit">

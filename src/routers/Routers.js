@@ -27,7 +27,6 @@ const Routers = ({ jobs, addJob }) => {
   return (
     <Routes>
       <Route path="/aboutme" element={<Me />} /> {/* Use the correct component */}
-      <Route path="/jobs/:id/applicants" element={<JobApplicantsPage />} />
       <Route path='/Signup-Hr' element={<Signuphr />} />
       <Route path='/Login-Hr' element={<Loginhr />} />
       <Route path="/create-job" element={<CreateJob addJob={addJob} />} />
@@ -50,6 +49,8 @@ const Routers = ({ jobs, addJob }) => {
       <Route path="/login" element={<Login />} />
       <Route path="/resume-builder" element={<ResumeBuilder />} />
       <Route path="/resume-score" element={<ResumeScore />} />
+      <Route path="/applicants" element={<JobApplicantsPage />} />
+
     </Routes>
   );
 };

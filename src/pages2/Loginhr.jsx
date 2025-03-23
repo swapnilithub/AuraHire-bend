@@ -18,7 +18,7 @@ const Loginhr = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:8080/api/hr/auth/login", {
+      const response = await fetch("http://localhost:15000/api/login-hr", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -26,12 +26,19 @@ const Loginhr = () => {
         body: JSON.stringify(formData),
       });
 
-      const text = await response.text();
+      const data = await response.json();
 
       if (response.ok) {
-        navigate("/home");
+        // Store the JWT token in localStorage for subsequent requests
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("name", data.user.name);
+        localStorage.setItem("email", data.user.email);
+        localStorage.setItem("role", data.user.role);
+
+        // Navigate to home page
+        navigate("/homehr");
       } else {
-        setMessage(text || "Login failed");
+        setMessage(data.message || "Login failed");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -40,7 +47,7 @@ const Loginhr = () => {
   };
 
   const handleSignUp = () => {
-    navigate("/Signup-Hr");
+    navigate("/signup-hr");
   };
 
   return (
@@ -54,7 +61,7 @@ const Loginhr = () => {
         </div>
       </div>
       <div className="login-form-section">
-        <h2>Welcome to <black>Aura</black>Hire Hr authentication</h2>
+        <h2>Welcome to <strong>Aura</strong>Hire HR Authentication</h2>
         <form className="login-form" onSubmit={handleSubmit}>
           {message && <p>{message}</p>}
           <div className="login-form-group">
@@ -80,9 +87,9 @@ const Loginhr = () => {
           <button className="login-button" type="submit">
             Sign in
           </button>
-          <p className="signupp-prompt">
+          <p className="signup-prompt">
             New to <strong>Aura</strong>Hire?{" "}
-            <button className="signupp-button" type="button" onClick={handleSignUp}>
+            <button className="signup-button" type="button" onClick={handleSignUp}>
               Create Account
             </button>
           </p>

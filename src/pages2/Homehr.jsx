@@ -11,7 +11,7 @@ const Homehr = () => {
   };
 
   const handleViewApplicants = () => {
-    navigate('/jobs/:id');
+    navigate('/applicants');
   };
 
   return (

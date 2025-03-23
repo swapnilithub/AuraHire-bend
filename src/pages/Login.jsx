@@ -36,16 +36,20 @@ const Login = () => {
     }
   };
 
+  const handleSignUp = () => {
+    navigate("/signup");
+  };
+
   return (
     <div className="login-container">
       <div className="login-image">
         <div className="image-content">
-          <p className="tagline"><black>Aura</black>Hire</p>
+          <p className="tagline"><strong>Aura</strong>Hire</p>
           <p className="subtext">Where the world comes for the future</p>
         </div>
       </div>
       <div className="login-form-section">
-        <h2>Welcome to <duo>Aura</duo>Hire</h2>
+        <h2>Welcome to <strong>Aura</strong>Hire</h2>
         <form className="login-form" onSubmit={handleSubmit}>
           {message && <p>{message}</p>}
           <div className="login-form-group">
@@ -70,6 +74,12 @@ const Login = () => {
           </div>
           <button className="login-button" type="submit">Sign in</button>
         </form>
+        <p className="signup-prompt">
+          New to <strong>Aura</strong>Hire?{" "}
+          <button className="signup-button" type="button" onClick={handleSignUp}>
+            Create Account
+          </button>
+        </p>
       </div>
     </div>
   );
